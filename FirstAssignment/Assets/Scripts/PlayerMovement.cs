@@ -18,6 +18,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float jumpValue;
     [SerializeField] bool isPlayerGrounded;
 
+    [SerializeField] public bool isCharatcerActive;
+
     Rigidbody _rigidbody;
     InputManager myInputManager;
 
@@ -32,8 +34,12 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (isCharatcerActive)
+        {
         MoveCharacterWithKeyboard();
         Jump();
+
+        }
 
     }
 
