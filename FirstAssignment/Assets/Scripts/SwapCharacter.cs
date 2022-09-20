@@ -9,7 +9,8 @@ public class SwapCharacter : MonoBehaviour
     [SerializeField] private GameObject[] playableCharacters;
     [SerializeField] private int currentPlayer;
     [SerializeField] private CinemachineVirtualCamera cinemachine;
-    private Transform cameraPosition;
+    [SerializeField] private Camera playerCamera;
+    private Transform _cameraPosition;
     private string childName;
 
     void Awake()
@@ -34,15 +35,22 @@ public class SwapCharacter : MonoBehaviour
         currentPlayer = (currentPlayer += 1) % playableCharacters.Length;
         playableCharacters[currentPlayer].GetComponent<PlayerMovement>().isCharatcerActive = true;
 
-        SetNewCameraPosition();
+        SetNewCameraPositionCinemachine();
 
+    }
+
+    private void SetNewCameraPositionCinemachine()
+    {
+        _cameraPosition = playableCharacters[currentPlayer].transform.Find(childName);
+        //cinemachine.transform.position = cameraPosition.position;
+        cinemachine.Follow = playableCharacters[currentPlayer].transform;
     }
 
     private void SetNewCameraPosition()
     {
-        cameraPosition = playableCharacters[currentPlayer].transform.Find(childName);
-        //cinemachine.transform.position = cameraPosition.position;
-        cinemachine.Follow = playableCharacters[currentPlayer].transform;
+        _cameraPosition = playableCharacters[currentPlayer].transform.Find(childName);
+
+
     }
 
 }
