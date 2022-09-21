@@ -53,6 +53,15 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EndTurn"",
+                    ""type"": ""Button"",
+                    ""id"": ""2d6a2879-2365-48a1-b6df-17e7d4245ccb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -132,6 +141,17 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
                     ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f52d5098-6254-49c3-a3b8-85feb92e6bfc"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EndTurn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -143,6 +163,7 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
         m_PlayerControlls_Movement = m_PlayerControlls.FindAction("Movement", throwIfNotFound: true);
         m_PlayerControlls_Jump = m_PlayerControlls.FindAction("Jump", throwIfNotFound: true);
         m_PlayerControlls_Shoot = m_PlayerControlls.FindAction("Shoot", throwIfNotFound: true);
+        m_PlayerControlls_EndTurn = m_PlayerControlls.FindAction("EndTurn", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -205,6 +226,7 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerControlls_Movement;
     private readonly InputAction m_PlayerControlls_Jump;
     private readonly InputAction m_PlayerControlls_Shoot;
+    private readonly InputAction m_PlayerControlls_EndTurn;
     public struct PlayerControllsActions
     {
         private @InputManager m_Wrapper;
@@ -212,6 +234,7 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_PlayerControlls_Movement;
         public InputAction @Jump => m_Wrapper.m_PlayerControlls_Jump;
         public InputAction @Shoot => m_Wrapper.m_PlayerControlls_Shoot;
+        public InputAction @EndTurn => m_Wrapper.m_PlayerControlls_EndTurn;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControlls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -230,6 +253,9 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
                 @Shoot.started -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnShoot;
                 @Shoot.performed -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnShoot;
                 @Shoot.canceled -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnShoot;
+                @EndTurn.started -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnEndTurn;
+                @EndTurn.performed -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnEndTurn;
+                @EndTurn.canceled -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnEndTurn;
             }
             m_Wrapper.m_PlayerControllsActionsCallbackInterface = instance;
             if (instance != null)
@@ -243,6 +269,9 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
                 @Shoot.started += instance.OnShoot;
                 @Shoot.performed += instance.OnShoot;
                 @Shoot.canceled += instance.OnShoot;
+                @EndTurn.started += instance.OnEndTurn;
+                @EndTurn.performed += instance.OnEndTurn;
+                @EndTurn.canceled += instance.OnEndTurn;
             }
         }
     }
@@ -252,5 +281,6 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
+        void OnEndTurn(InputAction.CallbackContext context);
     }
 }

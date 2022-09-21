@@ -10,7 +10,7 @@ public class CameraFollow : MonoBehaviour
 
     void Start()
     {
-        SetUp();
+        CameraSetUp();
     }
 
     void Update()
@@ -19,7 +19,7 @@ public class CameraFollow : MonoBehaviour
         transform.position = cameraPosition;
     }
 
-    public void SetUp()
+    public void CameraSetUp()
     {
         initalOffset = transform.position - targetObject.position;
 

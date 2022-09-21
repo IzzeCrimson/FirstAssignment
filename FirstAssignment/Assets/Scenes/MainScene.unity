@@ -296,7 +296,6 @@ GameObject:
   m_Component:
   - component: {fileID: 469986726}
   - component: {fileID: 469986725}
-  - component: {fileID: 469986727}
   m_Layer: 0
   m_Name: CM vcam1
   m_TagString: Untagged
@@ -358,18 +357,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 17.224, y: 0, z: 0}
---- !u!114 &469986727
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 469986724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4497816ebdbd7fd48a9f1b45d5037129, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &634387877 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1938525195734024185, guid: cd4ff879187013d4e8b91fbbeeff733a, type: 3}
@@ -415,8 +402,8 @@ MonoBehaviour:
   - {fileID: 439558798}
   - {fileID: 1155675009}
   currentPlayer: 0
-  cinemachine: {fileID: 955862556}
-  playerCamera: {fileID: 0}
+  cinemachine: {fileID: 469986725}
+  playerCamera: {fileID: 1845675865}
 --- !u!4 &902046422
 Transform:
   m_ObjectHideFlags: 0
@@ -450,7 +437,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!81 &955862555
 AudioListener:
   m_ObjectHideFlags: 0
@@ -824,7 +811,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &1845675864
 AudioListener:
   m_ObjectHideFlags: 0

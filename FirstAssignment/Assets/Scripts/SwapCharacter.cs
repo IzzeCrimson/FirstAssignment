@@ -8,21 +8,27 @@ public class SwapCharacter : MonoBehaviour
 
     [SerializeField] private GameObject[] playableCharacters;
     [SerializeField] private int currentPlayer;
+    private string childName;
+
     [SerializeField] private CinemachineVirtualCamera cinemachine;
     [SerializeField] private Camera playerCamera;
+    private CameraFollow cameraFollowScript;
     private Transform _cameraPosition;
-    private string childName;
+
+    InputManager inputManager;
 
     void Awake()
     {
         childName = "CameraPosition";
         playableCharacters[currentPlayer].GetComponent<PlayerMovement>().isCharatcerActive = true;
+        cameraFollowScript = playerCamera.GetComponent<CameraFollow>();
+        inputManager = new InputManager();
 
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (inputManager.PlayerControlls.EndTurn.triggered)
         {
             SwapPlayer();
         }
@@ -42,14 +48,33 @@ public class SwapCharacter : MonoBehaviour
     private void SetNewCameraPositionCinemachine()
     {
         _cameraPosition = playableCharacters[currentPlayer].transform.Find(childName);
-        //cinemachine.transform.position = cameraPosition.position;
+
+        cinemachine.transform.position = _cameraPosition.position;
+        cinemachine.transform.rotation = _cameraPosition.rotation;
+
         cinemachine.Follow = playableCharacters[currentPlayer].transform;
     }
 
     private void SetNewCameraPosition()
     {
         _cameraPosition = playableCharacters[currentPlayer].transform.Find(childName);
+        playerCamera.transform.position = _cameraPosition.position;
+        playerCamera.transform.rotation = _cameraPosition.rotation;
+        cameraFollowScript.targetObject = playableCharacters[currentPlayer].transform;
+        cameraFollowScript.CameraSetUp();
+    }
 
+    private void OnEnable()
+    {
+
+        inputManager.Enable();
+
+    }
+
+    private void OnDisable()
+    {
+
+        inputManager.Disable();
 
     }
 
