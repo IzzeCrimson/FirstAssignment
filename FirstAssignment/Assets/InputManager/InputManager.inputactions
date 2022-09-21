@@ -15,9 +15,18 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Jump",
+                    "name": "Look",
+                    "type": "Value",
+                    "id": "5a269081-cc5f-4527-81d0-1ceac2f8aec2",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Aim",
                     "type": "Button",
-                    "id": "4f23953e-ae9e-4d69-85f6-103b9d718d18",
+                    "id": "2f1c50d7-4bff-4c2e-b284-8750eab887a5",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -27,6 +36,15 @@
                     "name": "Shoot",
                     "type": "Button",
                     "id": "54267ea6-5f67-43f7-8dcb-1f62e77b0054",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "4f23953e-ae9e-4d69-85f6-103b9d718d18",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -100,17 +118,6 @@
                 },
                 {
                     "name": "",
-                    "id": "1d7a68fb-d29a-44a2-921b-3f3175f88f75",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "c6ab1aea-621b-437b-8a64-7bfef42ae5cc",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
@@ -128,6 +135,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "EndTurn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d8647565-dd6b-4a2e-83ca-fd9fd44349b6",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1d7a68fb-d29a-44a2-921b-3f3175f88f75",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "07b8c44b-ad0b-43a9-aba1-d5865e2b63ba",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Aim",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

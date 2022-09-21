@@ -37,9 +37,18 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Jump"",
+                    ""name"": ""Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""5a269081-cc5f-4527-81d0-1ceac2f8aec2"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Aim"",
                     ""type"": ""Button"",
-                    ""id"": ""4f23953e-ae9e-4d69-85f6-103b9d718d18"",
+                    ""id"": ""2f1c50d7-4bff-4c2e-b284-8750eab887a5"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -49,6 +58,15 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
                     ""name"": ""Shoot"",
                     ""type"": ""Button"",
                     ""id"": ""54267ea6-5f67-43f7-8dcb-1f62e77b0054"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""4f23953e-ae9e-4d69-85f6-103b9d718d18"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -122,17 +140,6 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""1d7a68fb-d29a-44a2-921b-3f3175f88f75"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""c6ab1aea-621b-437b-8a64-7bfef42ae5cc"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
@@ -152,6 +159,39 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
                     ""action"": ""EndTurn"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d8647565-dd6b-4a2e-83ca-fd9fd44349b6"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1d7a68fb-d29a-44a2-921b-3f3175f88f75"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""07b8c44b-ad0b-43a9-aba1-d5865e2b63ba"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -161,8 +201,10 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
         // PlayerControlls
         m_PlayerControlls = asset.FindActionMap("PlayerControlls", throwIfNotFound: true);
         m_PlayerControlls_Movement = m_PlayerControlls.FindAction("Movement", throwIfNotFound: true);
-        m_PlayerControlls_Jump = m_PlayerControlls.FindAction("Jump", throwIfNotFound: true);
+        m_PlayerControlls_Look = m_PlayerControlls.FindAction("Look", throwIfNotFound: true);
+        m_PlayerControlls_Aim = m_PlayerControlls.FindAction("Aim", throwIfNotFound: true);
         m_PlayerControlls_Shoot = m_PlayerControlls.FindAction("Shoot", throwIfNotFound: true);
+        m_PlayerControlls_Jump = m_PlayerControlls.FindAction("Jump", throwIfNotFound: true);
         m_PlayerControlls_EndTurn = m_PlayerControlls.FindAction("EndTurn", throwIfNotFound: true);
     }
 
@@ -224,16 +266,20 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_PlayerControlls;
     private IPlayerControllsActions m_PlayerControllsActionsCallbackInterface;
     private readonly InputAction m_PlayerControlls_Movement;
-    private readonly InputAction m_PlayerControlls_Jump;
+    private readonly InputAction m_PlayerControlls_Look;
+    private readonly InputAction m_PlayerControlls_Aim;
     private readonly InputAction m_PlayerControlls_Shoot;
+    private readonly InputAction m_PlayerControlls_Jump;
     private readonly InputAction m_PlayerControlls_EndTurn;
     public struct PlayerControllsActions
     {
         private @InputManager m_Wrapper;
         public PlayerControllsActions(@InputManager wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_PlayerControlls_Movement;
-        public InputAction @Jump => m_Wrapper.m_PlayerControlls_Jump;
+        public InputAction @Look => m_Wrapper.m_PlayerControlls_Look;
+        public InputAction @Aim => m_Wrapper.m_PlayerControlls_Aim;
         public InputAction @Shoot => m_Wrapper.m_PlayerControlls_Shoot;
+        public InputAction @Jump => m_Wrapper.m_PlayerControlls_Jump;
         public InputAction @EndTurn => m_Wrapper.m_PlayerControlls_EndTurn;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControlls; }
         public void Enable() { Get().Enable(); }
@@ -247,12 +293,18 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
                 @Movement.started -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnMovement;
                 @Movement.performed -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnMovement;
                 @Movement.canceled -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnMovement;
-                @Jump.started -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnJump;
-                @Jump.performed -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnJump;
-                @Jump.canceled -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnJump;
+                @Look.started -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnLook;
+                @Look.performed -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnLook;
+                @Look.canceled -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnLook;
+                @Aim.started -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnAim;
+                @Aim.performed -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnAim;
+                @Aim.canceled -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnAim;
                 @Shoot.started -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnShoot;
                 @Shoot.performed -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnShoot;
                 @Shoot.canceled -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnShoot;
+                @Jump.started -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnJump;
+                @Jump.performed -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnJump;
+                @Jump.canceled -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnJump;
                 @EndTurn.started -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnEndTurn;
                 @EndTurn.performed -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnEndTurn;
                 @EndTurn.canceled -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnEndTurn;
@@ -263,12 +315,18 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
-                @Jump.started += instance.OnJump;
-                @Jump.performed += instance.OnJump;
-                @Jump.canceled += instance.OnJump;
+                @Look.started += instance.OnLook;
+                @Look.performed += instance.OnLook;
+                @Look.canceled += instance.OnLook;
+                @Aim.started += instance.OnAim;
+                @Aim.performed += instance.OnAim;
+                @Aim.canceled += instance.OnAim;
                 @Shoot.started += instance.OnShoot;
                 @Shoot.performed += instance.OnShoot;
                 @Shoot.canceled += instance.OnShoot;
+                @Jump.started += instance.OnJump;
+                @Jump.performed += instance.OnJump;
+                @Jump.canceled += instance.OnJump;
                 @EndTurn.started += instance.OnEndTurn;
                 @EndTurn.performed += instance.OnEndTurn;
                 @EndTurn.canceled += instance.OnEndTurn;
@@ -279,8 +337,10 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
     public interface IPlayerControllsActions
     {
         void OnMovement(InputAction.CallbackContext context);
-        void OnJump(InputAction.CallbackContext context);
+        void OnLook(InputAction.CallbackContext context);
+        void OnAim(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
         void OnEndTurn(InputAction.CallbackContext context);
     }
 }
