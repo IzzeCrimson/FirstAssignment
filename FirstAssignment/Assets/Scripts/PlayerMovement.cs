@@ -9,19 +9,26 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float movementSpeed;
     [SerializeField] float smoothInputSpeed;
     Vector3 playerPosition;
-    Vector2 input;
-    Vector2 currentInput;
+    Vector2 inputValue;
+    Vector2 smoothValue;
     Vector2 velocity;
+    Vector3 moveVector;
+
+    [Header("Rotation")]
+    [SerializeField] float rotationSpeed;
 
     [Header("Jumping and Gravity")]
     [SerializeField] float gravityValue;
     [SerializeField] float jumpValue;
     [SerializeField] bool isPlayerGrounded;
 
+    [Header("Bool")]
     [SerializeField] public bool isCharatcerActive;
 
     Rigidbody _rigidbody;
     InputManager myInputManager;
+    private Transform cameraTransform;
+    Quaternion cameraRotation;
 
     void Awake()
     {
@@ -29,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
 
         isPlayerGrounded = true;
+        cameraTransform = Camera.main.transform;
     }
 
 
@@ -36,8 +44,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isCharatcerActive)
         {
-        MoveCharacterWithKeyboard();
-        Jump();
+            MoveCharacterWithKeyboard();
+            Jump();
+            Rotate();
 
         }
 
@@ -45,10 +54,13 @@ public class PlayerMovement : MonoBehaviour
 
     void MoveCharacterWithKeyboard()
     {
-        input = myInputManager.PlayerControlls.Movement.ReadValue<Vector2>();
-        currentInput = Vector2.SmoothDamp(currentInput, input, ref velocity, smoothInputSpeed);
-        playerPosition = new Vector3(currentInput.x, 0, currentInput.y);
+        inputValue = myInputManager.PlayerControlls.Movement.ReadValue<Vector2>();
+        moveVector = new Vector3(inputValue.x, 0, inputValue.y);
+        moveVector = moveVector.x * cameraTransform.right.normalized + moveVector.z * cameraTransform.forward.normalized;
+        //smoothValue = Vector2.SmoothDamp(smoothValue, moveVector, ref velocity, smoothInputSpeed);
+        playerPosition = new Vector3(moveVector.x, 0, moveVector.y);
         transform.position += playerPosition * movementSpeed * Time.deltaTime;
+
 
     }
 
@@ -62,6 +74,12 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
+    }
+
+    void Rotate()
+    {
+        cameraRotation = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0);
+        transform.rotation = Quaternion.Lerp(transform.rotation, cameraRotation, rotationSpeed);
     }
 
 
