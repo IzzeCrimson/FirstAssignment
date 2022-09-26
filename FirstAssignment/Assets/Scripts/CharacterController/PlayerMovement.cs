@@ -10,8 +10,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float smoothInputSpeed;
     Vector3 playerPosition;
     Vector2 inputValue;
-    Vector2 smoothValue;
-    Vector2 velocity;
+    Vector3 smoothVector;
+    Vector3 velocity;
     Vector3 moveVector;
 
     [Header("Rotation")]
@@ -44,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isCharatcerActive)
         {
-            MoveCharacterWithKeyboard();
+            MoveCharacterWithKeyboardReworked();
             Jump();
             Rotate();
 
@@ -57,11 +57,25 @@ public class PlayerMovement : MonoBehaviour
         inputValue = myInputManager.PlayerControlls.Movement.ReadValue<Vector2>();
         moveVector = new Vector3(inputValue.x, 0, inputValue.y);
         moveVector = moveVector.x * cameraTransform.right.normalized + moveVector.z * cameraTransform.forward.normalized;
-        //smoothValue = Vector2.SmoothDamp(smoothValue, moveVector, ref velocity, smoothInputSpeed);
+        smoothVector = Vector3.SmoothDamp(smoothVector, moveVector, ref velocity, smoothInputSpeed);
         playerPosition = new Vector3(moveVector.x, 0, moveVector.y);
         transform.position += playerPosition * movementSpeed * Time.deltaTime;
 
 
+    }
+
+    void MoveCharacterWithKeyboardReworked()
+    {
+        inputValue = myInputManager.PlayerControlls.Movement.ReadValue<Vector2>();
+
+        moveVector = new Vector3(inputValue.x, 0, inputValue.y);
+
+        moveVector = moveVector.x * cameraTransform.right.normalized + moveVector.z * cameraTransform.forward.normalized;
+        moveVector.y = 0;
+
+        smoothVector = Vector3.SmoothDamp(smoothVector, moveVector, ref velocity, smoothInputSpeed);
+
+        transform.position += smoothVector * movementSpeed * Time.fixedDeltaTime;
     }
 
     void Jump()
