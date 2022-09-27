@@ -25,6 +25,9 @@ public class PlayerMovement : MonoBehaviour
     [Header("Bool")]
     [SerializeField] public bool isCharatcerActive;
 
+    [Header("Weapon")]
+    [SerializeField] private Weapon weapon;
+
     Rigidbody _rigidbody;
     InputManager myInputManager;
     private Transform cameraTransform;
@@ -37,6 +40,8 @@ public class PlayerMovement : MonoBehaviour
 
         isPlayerGrounded = true;
         cameraTransform = Camera.main.transform;
+
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
 
@@ -44,27 +49,16 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isCharatcerActive)
         {
-            MoveCharacterWithKeyboardReworked();
+            MoveCharacterWithKeyboard();
             Jump();
             Rotate();
+            Shoot();
 
         }
 
     }
 
     void MoveCharacterWithKeyboard()
-    {
-        inputValue = myInputManager.PlayerControlls.Movement.ReadValue<Vector2>();
-        moveVector = new Vector3(inputValue.x, 0, inputValue.y);
-        moveVector = moveVector.x * cameraTransform.right.normalized + moveVector.z * cameraTransform.forward.normalized;
-        smoothVector = Vector3.SmoothDamp(smoothVector, moveVector, ref velocity, smoothInputSpeed);
-        playerPosition = new Vector3(moveVector.x, 0, moveVector.y);
-        transform.position += playerPosition * movementSpeed * Time.deltaTime;
-
-
-    }
-
-    void MoveCharacterWithKeyboardReworked()
     {
         inputValue = myInputManager.PlayerControlls.Movement.ReadValue<Vector2>();
 
@@ -88,6 +82,15 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
+    }
+
+    void Shoot()
+    {
+        if (myInputManager.PlayerControlls.Shoot.triggered)
+        {
+            weapon.Shoot();
+
+        }
     }
 
     void Rotate()
