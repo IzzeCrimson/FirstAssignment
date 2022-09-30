@@ -7,6 +7,8 @@ public class Weapon : MonoBehaviour
 
     [SerializeField] protected GameObject bulletPrefab;
     [SerializeField] protected Transform spawnPoint;
+    [SerializeField] protected Camera playerCamera;
+
 
     public virtual void Shoot()
     {

@@ -5,13 +5,14 @@ using UnityEngine;
 public class BulletScript : Projectile
 {
 
-    public Vector3 target;
+    public Vector3 direction;
     public bool isHit;
+    
 
     private void Update()
     {
-       
 
+        
 
     }
 

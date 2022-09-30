@@ -10,7 +10,7 @@ public class SwapCharacter : MonoBehaviour
     [SerializeField] private int currentPlayer;
 
     [SerializeField] private CinemachineVirtualCamera cinemachine;
-    [SerializeField] private Camera playerCamera;
+    //[SerializeField] private Camera playerCamera;
 
 
     InputManager inputManager;
