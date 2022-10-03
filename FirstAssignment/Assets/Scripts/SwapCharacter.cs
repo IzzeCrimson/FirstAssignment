@@ -17,7 +17,7 @@ public class SwapCharacter : MonoBehaviour
 
     void Awake()
     {
-        playableCharacters[currentPlayer].GetComponent<PlayerMovement>().isCharatcerActive = true;
+        playableCharacters[currentPlayer].GetComponent<PlayerControlls>().isCharatcerActive = true;
 
         inputManager = new InputManager();
 
@@ -33,10 +33,10 @@ public class SwapCharacter : MonoBehaviour
 
     private void SwapPlayer()
     {
-        playableCharacters[currentPlayer].GetComponent<PlayerMovement>().isCharatcerActive = false;
+        playableCharacters[currentPlayer].GetComponent<PlayerControlls>().isCharatcerActive = false;
 
-        currentPlayer = (currentPlayer += 1) % playableCharacters.Length;
-        playableCharacters[currentPlayer].GetComponent<PlayerMovement>().isCharatcerActive = true;
+        currentPlayer = (currentPlayer + 1) % playableCharacters.Length;
+        playableCharacters[currentPlayer].GetComponent<PlayerControlls>().isCharatcerActive = true;
 
         SetNewCameraPositionCinemachine();
 

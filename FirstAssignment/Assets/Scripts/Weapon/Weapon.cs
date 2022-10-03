@@ -7,8 +7,13 @@ public class Weapon : MonoBehaviour
 
     [SerializeField] protected GameObject bulletPrefab;
     [SerializeField] protected Transform spawnPoint;
-    [SerializeField] protected Camera playerCamera;
+    [SerializeField] protected float speed;
+    protected Camera playerCamera;
 
+    private void Start()
+    {
+        playerCamera = Camera.main;
+    }
 
     public virtual void Shoot()
     {

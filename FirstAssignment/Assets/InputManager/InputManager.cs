@@ -80,6 +80,15 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwapWeapon"",
+                    ""type"": ""Value"",
+                    ""id"": ""f72d280d-d88e-491e-91d5-04d1e8fa378d"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -192,6 +201,17 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
                     ""action"": ""Aim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4890522c-557d-4cb3-a3c9-75c72aa23909"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwapWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -206,6 +226,7 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
         m_PlayerControlls_Shoot = m_PlayerControlls.FindAction("Shoot", throwIfNotFound: true);
         m_PlayerControlls_Jump = m_PlayerControlls.FindAction("Jump", throwIfNotFound: true);
         m_PlayerControlls_EndTurn = m_PlayerControlls.FindAction("EndTurn", throwIfNotFound: true);
+        m_PlayerControlls_SwapWeapon = m_PlayerControlls.FindAction("SwapWeapon", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -271,6 +292,7 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerControlls_Shoot;
     private readonly InputAction m_PlayerControlls_Jump;
     private readonly InputAction m_PlayerControlls_EndTurn;
+    private readonly InputAction m_PlayerControlls_SwapWeapon;
     public struct PlayerControllsActions
     {
         private @InputManager m_Wrapper;
@@ -281,6 +303,7 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
         public InputAction @Shoot => m_Wrapper.m_PlayerControlls_Shoot;
         public InputAction @Jump => m_Wrapper.m_PlayerControlls_Jump;
         public InputAction @EndTurn => m_Wrapper.m_PlayerControlls_EndTurn;
+        public InputAction @SwapWeapon => m_Wrapper.m_PlayerControlls_SwapWeapon;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControlls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -308,6 +331,9 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
                 @EndTurn.started -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnEndTurn;
                 @EndTurn.performed -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnEndTurn;
                 @EndTurn.canceled -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnEndTurn;
+                @SwapWeapon.started -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnSwapWeapon;
+                @SwapWeapon.performed -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnSwapWeapon;
+                @SwapWeapon.canceled -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnSwapWeapon;
             }
             m_Wrapper.m_PlayerControllsActionsCallbackInterface = instance;
             if (instance != null)
@@ -330,6 +356,9 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
                 @EndTurn.started += instance.OnEndTurn;
                 @EndTurn.performed += instance.OnEndTurn;
                 @EndTurn.canceled += instance.OnEndTurn;
+                @SwapWeapon.started += instance.OnSwapWeapon;
+                @SwapWeapon.performed += instance.OnSwapWeapon;
+                @SwapWeapon.canceled += instance.OnSwapWeapon;
             }
         }
     }
@@ -342,5 +371,6 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
         void OnShoot(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnEndTurn(InputAction.CallbackContext context);
+        void OnSwapWeapon(InputAction.CallbackContext context);
     }
 }

@@ -8,10 +8,12 @@ public class Gun : Weapon
     private BulletScript bulletScript;
     private Vector3 target;
 
+
     private void Awake()
     {
         //cameraTransform = Camera.main.transform;
         bulletScript = bulletPrefab.GetComponent<BulletScript>();
+
     }
 
     public override void Shoot()
@@ -20,20 +22,20 @@ public class Gun : Weapon
         //GameObject bullet = Instantiate(bulletPrefab, spawnPoint.position, Quaternion.identity);
         Ray ray = playerCamera.ViewportPointToRay(new Vector3(0, 0, 0));
         RaycastHit hit;
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, Mathf.Infinity))
+        if (Physics.Raycast(playerCamera.transform.position, Camera.main.transform.forward, out hit, Mathf.Infinity))
         {
             target = hit.point;
             
         }
         else
         {
-            target = (Camera.main.transform.position + Camera.main.transform.forward * 1000);
+            target = (playerCamera.transform.position + playerCamera.transform.forward * 1000);
         }
 
         GameObject bullet = Instantiate(bulletPrefab, spawnPoint.position, Quaternion.identity);
-        bullet.GetComponent<Rigidbody>().velocity = (target - spawnPoint.position).normalized * bulletScript.speed;
+        bullet.GetComponent<Rigidbody>().velocity = (target - spawnPoint.position).normalized * speed;
 
-        //Debug.Log("Gun Fired!");
+        Debug.Log("Gun Fired!");
     }
 
 }
