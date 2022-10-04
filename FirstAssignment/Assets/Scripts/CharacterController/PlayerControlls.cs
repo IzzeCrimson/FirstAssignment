@@ -57,9 +57,9 @@ public class PlayerControlls : MonoBehaviour
         {
             MoveCharacterWithKeyboard();
             Jump();
+            SwapWeapon();
             Rotate();
             Shoot();
-            SwapWeapon();
 
         }
 
@@ -104,6 +104,7 @@ public class PlayerControlls : MonoBehaviour
     {
         cameraRotation = Quaternion.Euler(0, cameraTransform.eulerAngles.y, 0);
         transform.rotation = Quaternion.Lerp(transform.rotation, cameraRotation, rotationSpeed);
+
     }
 
     void SwapWeapon()
