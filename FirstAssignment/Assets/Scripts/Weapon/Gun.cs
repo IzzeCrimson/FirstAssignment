@@ -35,7 +35,7 @@ public class Gun : Weapon
         GameObject bullet = Instantiate(bulletPrefab, spawnPoint.position, Quaternion.identity);
         bullet.GetComponent<Rigidbody>().velocity = (target - spawnPoint.position).normalized * speed;
 
-        Debug.Log("Gun Fired!");
+       // Debug.Log("Gun Fired!");
     }
 
 }

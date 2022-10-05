@@ -6,8 +6,10 @@ public class Projectile : MonoBehaviour
 {
 
     public float speed;
-    [SerializeField] protected float timeToDestroy;
     protected Transform cameraTransform;
+    protected Health healthScript;
+    protected HealthBar healthBarScript;
+    [SerializeField] protected float timeToDestroy;
     [SerializeField] protected float damage;
 
     private void Update()

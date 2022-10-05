@@ -5,8 +5,8 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     
-    [SerializeField] private float maxHealth;
-    private float currentHealth;
+    [SerializeField] public float maxHealth;
+    [SerializeField] public float currentHealth;
 
     private void Start()
     {
@@ -15,7 +15,7 @@ public class Health : MonoBehaviour
 
     public void SubtractHealth(float damage)
     {
-        currentHealth =- damage;
+        currentHealth -= damage;
         DeathCheck(currentHealth);
 
     }

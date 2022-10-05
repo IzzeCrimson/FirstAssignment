@@ -7,7 +7,7 @@ public class RocketLauncher : Weapon
 
     public override void Shoot()
     {
-        Debug.Log("Rocket Launcher Fired!");
+        //Debug.Log("Rocket Launcher Fired!");
     }
 
 

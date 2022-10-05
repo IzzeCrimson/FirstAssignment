@@ -6,10 +6,10 @@ using UnityEngine;
 public class SwapCharacter : MonoBehaviour
 {
 
-    [SerializeField] private GameObject[] playableCharacters;
-    [SerializeField] private int currentPlayer;
+    [SerializeField] static private GameObject[] playableCharacters;
+    [SerializeField] static private int currentPlayer;
 
-    [SerializeField] private CinemachineVirtualCamera cinemachine;
+    [SerializeField] static private CinemachineVirtualCamera cinemachine;
     //[SerializeField] private Camera playerCamera;
 
 
@@ -25,24 +25,21 @@ public class SwapCharacter : MonoBehaviour
 
     void Update()
     {
-        if (inputManager.PlayerControlls.EndTurn.triggered)
-        {
-            SwapPlayer();
-        }
+        
     }
 
-    private void SwapPlayer()
+    static private void SwapPlayer()
     {
         playableCharacters[currentPlayer].GetComponent<PlayerControlls>().isCharatcerActive = false;
 
         currentPlayer = (currentPlayer + 1) % playableCharacters.Length;
+        SetNewCameraPositionCinemachine();
         playableCharacters[currentPlayer].GetComponent<PlayerControlls>().isCharatcerActive = true;
 
-        SetNewCameraPositionCinemachine();
-
+        
     }
 
-    private void SetNewCameraPositionCinemachine()
+    static private void SetNewCameraPositionCinemachine()
     {
         //cinemachine.transform.rotation = playableCharacters[currentPlayer].transform.rotation;
         cinemachine.Follow = playableCharacters[currentPlayer].transform;

@@ -5,10 +5,6 @@ using UnityEngine;
 public class BulletScript : Projectile
 {
 
-    public Vector3 direction;
-    public bool isHit;
-    
-
     private void Update()
     {
 
@@ -18,7 +14,16 @@ public class BulletScript : Projectile
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("HIT");
+        if (collision.gameObject.GetComponent<HealthBar>())
+        {
+            healthScript = collision.gameObject.GetComponent<Health>();
+            healthScript.SubtractHealth(damage);
+            healthBarScript = collision.gameObject.GetComponent<HealthBar>();
+            healthBarScript.SetHealthValue(healthScript.currentHealth);
+            
+        }
+
+
         Destroy(gameObject);
     }
 }
