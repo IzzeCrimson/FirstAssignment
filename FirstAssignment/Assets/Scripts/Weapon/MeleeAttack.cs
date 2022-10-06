@@ -7,7 +7,11 @@ public class MeleeAttack : Weapon
 
     public override void Shoot()
     {
-        Debug.Log("Hiya!");
+        base.Shoot();
+
+        GameObject fist = Instantiate(projectilePrefab, spawnPoint.position, Quaternion.identity);
+        fist.GetComponent<Rigidbody>().velocity = (target - spawnPoint.position).normalized * speed;
+
     }
 
 

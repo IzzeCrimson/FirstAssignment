@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletScript : Projectile
+public class MeeleProjectileScript : Projectile
 {
 
     void Awake()
@@ -13,10 +13,11 @@ public class BulletScript : Projectile
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.GetComponent<HealthBar>())
-        { 
+        {
             DealDamageOnCollision(collision);
-        
+
         }
-            Destroy(gameObject);
+
     }
+
 }

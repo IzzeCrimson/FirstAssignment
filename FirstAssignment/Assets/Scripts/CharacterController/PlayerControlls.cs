@@ -23,6 +23,7 @@ public class PlayerControlls : MonoBehaviour
     [SerializeField] bool isPlayerGrounded;
 
     [Header("Bool")]
+    [SerializeField] public bool isCharacterBlue;
     [SerializeField] public bool isCharatcerActive;
 
     [Header("Weapon")]
@@ -55,11 +56,20 @@ public class PlayerControlls : MonoBehaviour
     {
         if (isCharatcerActive)
         {
-            MoveCharacterWithKeyboard();
-            Jump();
-            SwapWeapon();
+            if (TurnTime.isTurnRunning || TurnTime.isTurnEnding)
+            {
+                MoveCharacterWithKeyboard();
+                Jump();
+                SwapWeapon();
+
+            }
+
+            if (TurnTime.isTurnRunning)
+            {
+                Shoot();
+
+            }
             Rotate();
-            Shoot();
 
         }
 
@@ -96,7 +106,7 @@ public class PlayerControlls : MonoBehaviour
         if (myInputManager.PlayerControlls.Shoot.triggered)
         {
             weapons[currentWeapon].Shoot();
-
+            TurnTime.EndTurnTimer();
         }
     }
 

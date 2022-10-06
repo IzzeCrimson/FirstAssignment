@@ -5,7 +5,6 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
 
-    public float speed;
     protected Transform cameraTransform;
     protected Health healthScript;
     protected HealthBar healthBarScript;
@@ -14,7 +13,17 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
-        cameraTransform = Camera.main.transform;            
+        cameraTransform = Camera.main.transform;
+    }
+
+    protected void DealDamageOnCollision(Collision collision)
+    {
+        healthScript = collision.gameObject.GetComponent<Health>();
+        healthScript.SubtractHealth(damage);
+        healthBarScript = collision.gameObject.GetComponent<HealthBar>();
+        healthBarScript.SetHealthValue(healthScript.currentHealth);
+
+
     }
 
 }

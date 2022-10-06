@@ -1,12 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    
-    [SerializeField] public float maxHealth;
-    [SerializeField] public float currentHealth;
+    [SerializeField] CharacterManager characterManager;
+
+    public float maxHealth;
+    public float currentHealth;
 
     private void Start()
     {
@@ -24,7 +26,9 @@ public class Health : MonoBehaviour
     {
         if (health <= 0)
         {
-            Destroy(gameObject);
+            characterManager.RemoveCharacter(gameObject);
+
+           // Destroy(gameObject);
 
         }
 

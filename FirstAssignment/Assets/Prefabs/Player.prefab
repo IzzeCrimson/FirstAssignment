@@ -88,6 +88,7 @@ MonoBehaviour:
   gravityValue: 0
   jumpValue: 7
   isPlayerGrounded: 0
+  isCharacterBlue: 0
   isCharatcerActive: 0
   weaponPosition: {fileID: 8882742073425481224}
   weapons:
@@ -106,6 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4e44e91dfa55854183c1f20e28f3e0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterManager: {fileID: 7992848864318105967, guid: a8ac38a16973bde40b2e27047ab27c1e, type: 3}
   maxHealth: 100
   currentHealth: 0
 --- !u!114 &4671793902893970976
@@ -655,6 +657,14 @@ PrefabInstance:
       value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 7769360689919464472, guid: 8479a498557576446bf9dfabdc4e710c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7769360689919464472, guid: 8479a498557576446bf9dfabdc4e710c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7769360689919464472, guid: 8479a498557576446bf9dfabdc4e710c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -688,7 +698,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7769360689919464472, guid: 8479a498557576446bf9dfabdc4e710c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -0.522
       objectReference: {fileID: 0}
     - target: {fileID: 7769360689919464472, guid: 8479a498557576446bf9dfabdc4e710c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
