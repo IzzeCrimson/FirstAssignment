@@ -89,6 +89,15 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""OpenMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""4c11557d-e817-4476-8da9-8f545454c62e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -212,6 +221,17 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
                     ""action"": ""SwapWeapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""502389b2-9e7f-4efb-a9e8-d0e7ce6bf13e"",
+                    ""path"": ""<Keyboard>/j"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -227,6 +247,7 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
         m_PlayerControlls_Jump = m_PlayerControlls.FindAction("Jump", throwIfNotFound: true);
         m_PlayerControlls_EndTurn = m_PlayerControlls.FindAction("EndTurn", throwIfNotFound: true);
         m_PlayerControlls_SwapWeapon = m_PlayerControlls.FindAction("SwapWeapon", throwIfNotFound: true);
+        m_PlayerControlls_OpenMenu = m_PlayerControlls.FindAction("OpenMenu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -293,6 +314,7 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerControlls_Jump;
     private readonly InputAction m_PlayerControlls_EndTurn;
     private readonly InputAction m_PlayerControlls_SwapWeapon;
+    private readonly InputAction m_PlayerControlls_OpenMenu;
     public struct PlayerControllsActions
     {
         private @InputManager m_Wrapper;
@@ -304,6 +326,7 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_PlayerControlls_Jump;
         public InputAction @EndTurn => m_Wrapper.m_PlayerControlls_EndTurn;
         public InputAction @SwapWeapon => m_Wrapper.m_PlayerControlls_SwapWeapon;
+        public InputAction @OpenMenu => m_Wrapper.m_PlayerControlls_OpenMenu;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControlls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -334,6 +357,9 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
                 @SwapWeapon.started -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnSwapWeapon;
                 @SwapWeapon.performed -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnSwapWeapon;
                 @SwapWeapon.canceled -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnSwapWeapon;
+                @OpenMenu.started -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnOpenMenu;
+                @OpenMenu.performed -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnOpenMenu;
+                @OpenMenu.canceled -= m_Wrapper.m_PlayerControllsActionsCallbackInterface.OnOpenMenu;
             }
             m_Wrapper.m_PlayerControllsActionsCallbackInterface = instance;
             if (instance != null)
@@ -359,6 +385,9 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
                 @SwapWeapon.started += instance.OnSwapWeapon;
                 @SwapWeapon.performed += instance.OnSwapWeapon;
                 @SwapWeapon.canceled += instance.OnSwapWeapon;
+                @OpenMenu.started += instance.OnOpenMenu;
+                @OpenMenu.performed += instance.OnOpenMenu;
+                @OpenMenu.canceled += instance.OnOpenMenu;
             }
         }
     }
@@ -372,5 +401,6 @@ public partial class @InputManager : IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnEndTurn(InputAction.CallbackContext context);
         void OnSwapWeapon(InputAction.CallbackContext context);
+        void OnOpenMenu(InputAction.CallbackContext context);
     }
 }

@@ -6,31 +6,30 @@ using UnityEngine;
 
 public class TurnTime : MonoBehaviour
 {
-    static private float setUpTimer;
-    static private float turnTimer;
-    static private float endTurnTimer;
-    static private float timer;
+    static private float _setUpTimer;
+    static private float _turnTimer;
+    static private float _endTurnTimer;
+    static private float _timer;
 
     static public bool isTurnSetUp;
     static public bool isTurnRunning;
     static public bool isTurnEnding;
 
-    static CharacterManager characterManager;
+    static private CharacterManager _characterManager;
 
-    [SerializeField] private TextMeshProUGUI timerText;
-    [SerializeField] private float floatSerilalizationHelper;
+    [SerializeField] private TextMeshProUGUI _timerText;
 
     private void Awake()
     {
-        characterManager = gameObject.GetComponent<CharacterManager>();
+        _characterManager = gameObject.GetComponent<CharacterManager>();
     }
 
     void Start()
     {
-        setUpTimer = 5;
-        turnTimer = 30;
-        endTurnTimer = 5;
-        timer = setUpTimer;
+        _setUpTimer = 3;
+        _turnTimer = 30;
+        _endTurnTimer = 5;
+        _timer = _setUpTimer;
 
         isTurnSetUp = true;
         isTurnRunning = false;
@@ -41,13 +40,12 @@ public class TurnTime : MonoBehaviour
     void Update()
     {
         TimerCountDown();
-        floatSerilalizationHelper = timer;
     }
 
     static public void EndTurnSetUp()
     {
         Debug.Log("Preperations has ended");
-        timer = turnTimer;
+        _timer = _turnTimer;
         isTurnSetUp = false;
         isTurnRunning = true;
 
@@ -56,7 +54,7 @@ public class TurnTime : MonoBehaviour
     static public void EndTurnTimer()
     {
         Debug.Log("Turn has ended");
-        timer = endTurnTimer;
+        _timer = _endTurnTimer;
         isTurnRunning = false;
         isTurnEnding = true;
 
@@ -65,36 +63,36 @@ public class TurnTime : MonoBehaviour
     static public void EndTurnEnding()
     {
         Debug.Log("Swapping player");
-        timer = setUpTimer;
+        _timer = _setUpTimer;
         isTurnEnding = false;
         isTurnSetUp = true;
-        characterManager.SwapPlayer();
+        _characterManager.SwapPlayer();
 
     }
 
     void TimerCountDown()
     {
-        timer -= Time.deltaTime;
+        _timer -= Time.deltaTime;
 
-        if (isTurnSetUp && timer <= 0)
+        if (isTurnSetUp && _timer <= 0)
         {
             EndTurnSetUp();
 
         }
 
-        if (isTurnRunning && timer <= 0)
+        if (isTurnRunning && _timer <= 0)
         {
             EndTurnTimer();
 
         }
 
-        if (isTurnEnding && timer <= 0)
+        if (isTurnEnding && _timer <= 0)
         {
             EndTurnEnding();
 
         }
 
-        timerText.text = Mathf.Round(timer * 1).ToString();
+        _timerText.text = Mathf.Round(_timer * 1).ToString();
     }
 
 }

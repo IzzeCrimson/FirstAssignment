@@ -26,9 +26,7 @@ public class Health : MonoBehaviour
     {
         if (health <= 0)
         {
-            characterManager.RemoveCharacter(gameObject);
-
-           // Destroy(gameObject);
+           Destroy(gameObject);
 
         }
 

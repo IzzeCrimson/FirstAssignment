@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BulletScript : Projectile
 {
+    [SerializeField] private ParticleSystem effect;
 
     void Awake()
     {
@@ -13,7 +14,8 @@ public class BulletScript : Projectile
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.GetComponent<HealthBar>())
-        { 
+        {
+            Instantiate(effect, gameObject.transform.position, Quaternion.identity);
             DealDamageOnCollision(collision);
         
         }
