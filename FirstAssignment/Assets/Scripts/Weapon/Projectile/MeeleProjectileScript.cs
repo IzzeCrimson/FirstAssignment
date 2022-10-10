@@ -5,20 +5,20 @@ using UnityEngine;
 public class MeeleProjectileScript : Projectile
 {
 
-    private bool hasHit;
+    private bool _hasHit;
 
     void Awake()
     {
-        Destroy(gameObject, timeToDestroy);
-        hasHit = false;
+        Destroy(gameObject, _timeToDestroy);
+        _hasHit = false;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (!hasHit && collision.gameObject.GetComponent<HealthBar>())
+        if (!_hasHit && collision.gameObject.GetComponent<HealthBar>())
         {
             DealDamageOnCollision(collision);
-            hasHit = true;
+            _hasHit = true;
         }
 
     }

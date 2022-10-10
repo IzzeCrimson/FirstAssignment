@@ -4,31 +4,31 @@ using UnityEngine;
 
 public class GrenadeScript : Projectile
 {
-    private bool isTimerActive;
-    private float time;
-    [SerializeField] private float timeThreshHold;
-    [SerializeField] private float radius;
-    [SerializeField] private float minDamage;
-    [SerializeField] private float maxDamage;
-    [SerializeField] private ParticleSystem explosionPrefab;
-    private Collider[] targets;
-    private float distance;
+    private bool _isTimerActive;
+    private float _time;
+    [SerializeField] private float _timeThreshHold;
+    [SerializeField] private float _radius;
+    [SerializeField] private float _minDamage;
+    [SerializeField] private float _maxDamage;
+    [SerializeField] private ParticleSystem _explosionPrefab;
+    private Collider[] _targets;
+    private float _distance;
 
     private void Start()
     {
-        isTimerActive = false;
-        timeThreshHold = 3f;
+        _isTimerActive = false;
+        _timeThreshHold = 3f;
     }
 
     void Update()
     {
-        if (isTimerActive)
+        if (_isTimerActive)
         {
-            time += Time.deltaTime;
+            _time += Time.deltaTime;
 
         }
 
-        if (time >= timeThreshHold)
+        if (_time >= _timeThreshHold)
         {
             Explode();
         }
@@ -36,26 +36,26 @@ public class GrenadeScript : Projectile
 
     private void OnCollisionEnter(Collision collision)
     {
-        isTimerActive = true;
+        _isTimerActive = true;
 
 
     }
 
     private void Explode()
     {
-        Instantiate(explosionPrefab, gameObject.transform.position, Quaternion.identity);
-        targets = Physics.OverlapSphere(gameObject.transform.position, radius);
+        Instantiate(_explosionPrefab, gameObject.transform.position, Quaternion.identity);
+        _targets = Physics.OverlapSphere(gameObject.transform.position, _radius);
 
-        for (int i = 0; i < targets.Length; i++)
+        for (int i = 0; i < _targets.Length; i++)
         {
-            distance = Vector3.Distance(gameObject.transform.position, targets[i].transform.position);
-            damage = Mathf.FloorToInt(Mathf.Lerp(maxDamage, minDamage, distance / radius));
+            _distance = Vector3.Distance(gameObject.transform.position, _targets[i].transform.position);
+            _damage = Mathf.FloorToInt(Mathf.Lerp(_maxDamage, _minDamage, _distance / _radius));
 
-            if (targets[i].TryGetComponent<Health>(out Health health))
+            if (_targets[i].TryGetComponent<Health>(out Health health))
             {
-                health.SubtractHealth(damage);
+                health.SubtractHealth(_damage);
             }
-            if (targets[i].TryGetComponent<HealthBar>(out HealthBar healthBar))
+            if (_targets[i].TryGetComponent<HealthBar>(out HealthBar healthBar))
             {
                 healthBar.SetHealthValue(health.currentHealth);
             }

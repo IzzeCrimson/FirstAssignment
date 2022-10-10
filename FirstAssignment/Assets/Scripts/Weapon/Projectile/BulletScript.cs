@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class BulletScript : Projectile
 {
-    [SerializeField] private ParticleSystem effect;
+    [SerializeField] private ParticleSystem _effect;
 
     void Awake()
     {
-        Destroy(gameObject, timeToDestroy);
+        Destroy(gameObject, _timeToDestroy);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.GetComponent<HealthBar>())
         {
-            Instantiate(effect, gameObject.transform.position, Quaternion.identity);
+            Instantiate(_effect, gameObject.transform.position, Quaternion.identity);
             DealDamageOnCollision(collision);
         
         }

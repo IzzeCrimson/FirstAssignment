@@ -190,7 +190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4e44e91dfa55854183c1f20e28f3e0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterManager: {fileID: 7992848864318105967, guid: a8ac38a16973bde40b2e27047ab27c1e, type: 3}
+  _characterManager: {fileID: 0}
   maxHealth: 100
   currentHealth: 0
 --- !u!114 &4671793902893970976
@@ -205,9 +205,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c67740905fd920141a62804f6565a966, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 1308907401260830482}
-  currentHealthText: {fileID: 6589181189380267631}
-  maxHealthText: {fileID: 1621392385731621752}
+  _slider: {fileID: 1308907401260830482}
+  _currentHealthText: {fileID: 6589181189380267631}
+  _maxHealthText: {fileID: 1621392385731621752}
 --- !u!1 &7131913927245041987
 GameObject:
   m_ObjectHideFlags: 0

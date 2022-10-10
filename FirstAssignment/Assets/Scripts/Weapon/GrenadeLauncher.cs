@@ -9,8 +9,8 @@ public class GrenadeLauncher : Weapon
     {
         base.Shoot();
 
-        GameObject grenade = Instantiate(projectilePrefab, spawnPoint.position, Quaternion.identity);
-        grenade.GetComponent<Rigidbody>().velocity = (target - spawnPoint.position).normalized * speed;
+        GameObject grenade = Instantiate(_projectilePrefab, _spawnPoint.position, Quaternion.identity);
+        grenade.GetComponent<Rigidbody>().velocity = (_target - _spawnPoint.position).normalized * _speed;
     }
 
 

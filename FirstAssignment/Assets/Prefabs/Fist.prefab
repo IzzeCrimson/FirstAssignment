@@ -111,9 +111,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5303a1fcd4751f9439c5721b3e385299, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 9190560231292751163, guid: ccb02ecf3123f9e41ae25eb80773c36c, type: 3}
-  spawnPoint: {fileID: 2289457758412853939}
-  speed: 70
+  _projectilePrefab: {fileID: 9190560231292751163, guid: ccb02ecf3123f9e41ae25eb80773c36c, type: 3}
+  _spawnPoint: {fileID: 2289457758412853939}
+  _speed: 80
 --- !u!1 &7050695934896268886
 GameObject:
   m_ObjectHideFlags: 0

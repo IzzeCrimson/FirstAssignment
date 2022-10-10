@@ -6,52 +6,52 @@ using UnityEngine.UI;
 public class TeamHealthBar : MonoBehaviour
 {
 
-    private float maxTeamHealth;
-    private float currentTeamHealth;
-    private List<GameObject> team;
+    private float _maxTeamHealth;
+    private float _currentTeamHealth;
+    private List<GameObject> _characters;
     Health healthScript;
 
-    [SerializeField] bool isBlueHealthBar;
-    [SerializeField] CharacterManager characterManager;
-    [SerializeField] Slider healthBar;
+    [SerializeField] private bool _isBlueHealthBar;
+    [SerializeField] private CharacterManager _characterManager;
+    [SerializeField] private Slider _healthBar;
 
 
     void Start()
     {
 
-        if (isBlueHealthBar)
+        if (_isBlueHealthBar)
         {
-            team = characterManager.blueTeamList;
+            _characters = _characterManager.blueTeamList;
         }
         else
         {
-            team = characterManager.redTeamList;
+            _characters = _characterManager.redTeamList;
         }
 
-        for (int i = 0; i < team.Count; i++)
+        for (int i = 0; i < _characters.Count; i++)
         {
-            healthScript = team[i].gameObject.GetComponent<Health>();
-            maxTeamHealth += healthScript.maxHealth;
+            healthScript = _characters[i].gameObject.GetComponent<Health>();
+            _maxTeamHealth += healthScript.maxHealth;
         }
 
-        healthBar.maxValue = maxTeamHealth;
-        healthBar.value = maxTeamHealth;
+        _healthBar.maxValue = _maxTeamHealth;
+        _healthBar.value = _maxTeamHealth;
     }
 
     private void UpdateHealthBar()
     {
-        currentTeamHealth = 0;
+        _currentTeamHealth = 0;
 
-        for (int i = 0; i < team.Count; i++)
+        for (int i = 0; i < _characters.Count; i++)
         {
-            if (team[i] != null)
+            if (_characters[i] != null)
             {
-                healthScript = team[i].gameObject.GetComponent<Health>();
-                currentTeamHealth += healthScript.currentHealth;
+                healthScript = _characters[i].gameObject.GetComponent<Health>();
+                _currentTeamHealth += healthScript.currentHealth;
 
             }
         }
-        healthBar.value = currentTeamHealth;
+        _healthBar.value = _currentTeamHealth;
 
     }
 

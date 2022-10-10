@@ -9,8 +9,8 @@ public class MeleeAttack : Weapon
     {
         base.Shoot();
 
-        GameObject fist = Instantiate(projectilePrefab, spawnPoint.position, Quaternion.identity);
-        fist.GetComponent<Rigidbody>().velocity = (target - spawnPoint.position).normalized * speed;
+        GameObject fist = Instantiate(_projectilePrefab, _spawnPoint.position, Quaternion.identity);
+        fist.GetComponent<Rigidbody>().velocity = (_target - _spawnPoint.position).normalized * _speed;
 
     }
 

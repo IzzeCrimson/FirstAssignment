@@ -8,33 +8,33 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Health))]
 public class HealthBar : MonoBehaviour
 {
-    private Health healthScript;
-    [SerializeField] Slider slider;
-    [SerializeField] TextMeshProUGUI currentHealthText;
-    [SerializeField] TextMeshProUGUI maxHealthText;
+    private Health _healthScript;
+    [SerializeField] private Slider _slider;
+    [SerializeField] private TextMeshProUGUI _currentHealthText;
+    [SerializeField] private TextMeshProUGUI _maxHealthText;
 
     public void HealthBarSetUp(float maxHealth)
     {
-        slider.maxValue = maxHealth;
-        slider.value = maxHealth;
-        maxHealthText.text = maxHealth.ToString();
-        currentHealthText.text = maxHealth.ToString();
+        _slider.maxValue = maxHealth;
+        _slider.value = maxHealth;
+        _maxHealthText.text = maxHealth.ToString();
+        _currentHealthText.text = maxHealth.ToString();
     }
 
     public void SetHealthValue(float health)
     {
-        slider.value = health;
-        currentHealthText.text = health.ToString();
+        _slider.value = health;
+        _currentHealthText.text = health.ToString();
     }
 
     private void Awake()
     {
-        healthScript = gameObject.GetComponent<Health>();
+        _healthScript = gameObject.GetComponent<Health>();
     }
 
     void Start()
     {
-        HealthBarSetUp(healthScript.maxHealth);
+        HealthBarSetUp(_healthScript.maxHealth);
 
     }
 

@@ -4,20 +4,13 @@ using UnityEngine;
 
 public class Gun : Weapon
 {
-   
-
-
-    private void Awake()
-    {
-
-    }
 
     public override void Shoot()
     {
         base.Shoot();
 
-        GameObject bullet = Instantiate(projectilePrefab, spawnPoint.position, Quaternion.identity);
-        bullet.GetComponent<Rigidbody>().velocity = (target - spawnPoint.position).normalized * speed;
+        GameObject bullet = Instantiate(_projectilePrefab, _spawnPoint.position, Quaternion.identity);
+        bullet.GetComponent<Rigidbody>().velocity = (_target - _spawnPoint.position).normalized * _speed;
 
        // Debug.Log("Gun Fired!");
     }

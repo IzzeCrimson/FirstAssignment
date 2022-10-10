@@ -2910,13 +2910,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7afce14b2b4dc54f829ea51c494d139, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playButton: {fileID: 1943159265}
-  continueButton: {fileID: 1622374249}
-  quitButton: {fileID: 1562650846}
-  backButton: {fileID: 633089499}
-  serializeMainPanel: {fileID: 552483558}
-  menuPanel: {fileID: 1816880694}
-  controlsPanel: {fileID: 48310691}
+  _playButton: {fileID: 1943159265}
+  _continueButton: {fileID: 1622374249}
+  _quitButton: {fileID: 1562650846}
+  _backButton: {fileID: 633089499}
+  _serializeMainPanel: {fileID: 552483558}
+  _menuPanel: {fileID: 1816880694}
+  _controlsPanel: {fileID: 48310691}
 --- !u!1 &1622374247
 GameObject:
   m_ObjectHideFlags: 0

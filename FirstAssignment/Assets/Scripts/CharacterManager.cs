@@ -7,8 +7,8 @@ using UnityEngine;
 public class CharacterManager : MonoBehaviour
 {
 
-    [SerializeField] public List<GameObject> blueTeamList;
-    [SerializeField] public List<GameObject> redTeamList;
+    public List<GameObject> blueTeamList;
+    public List<GameObject> redTeamList;
     [SerializeField] private int _currentBluePlayer;
     [SerializeField] private int _currentRedPlayer;
 

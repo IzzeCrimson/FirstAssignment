@@ -127,10 +127,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c171c860717240d45a63c9f70900cf2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToDestroy: 0
-  damage: 0
-  timeThreshHold: 3
-  radius: 10
-  minDamage: 10
-  maxDamage: 80
-  explosionPrefab: {fileID: 4392632010803890037, guid: ec44ec111bcb477468b3a1b650798e7e, type: 3}
+  _timeToDestroy: 60
+  _damage: 0
+  _timeThreshHold: 3
+  _radius: 10
+  _minDamage: 10
+  _maxDamage: 50
+  _explosionPrefab: {fileID: 4392632010803890037, guid: ec44ec111bcb477468b3a1b650798e7e, type: 3}

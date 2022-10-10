@@ -22,23 +22,23 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool _isPlayerGrounded;
 
     [Header("Bool")]
-    [SerializeField] public bool isCharacterBlue;
-    [SerializeField] public bool isCharatcerActive;
+    public bool isCharacterBlue;
+    public bool isCharatcerActive;
 
     [Header("Weapon")]
     [SerializeField] private Transform _weaponTransform;
     [SerializeField] private Weapon[] _weapons;
-    private float scrollValue;
-    private int currentWeapon;
+    private float _scrollValue;
+    private int _currentWeapon;
 
     private Rigidbody _rigidbody;
-    private InputManager myInputManager;
+    private InputManager _myInputManager;
     private Transform _cameraTransform;
     private Quaternion _cameraRotation;
 
     void Awake()
     {
-        myInputManager = new InputManager();
+        _myInputManager = new InputManager();
         _rigidbody = GetComponent<Rigidbody>();
 
         _isPlayerGrounded = true;
@@ -46,8 +46,8 @@ public class PlayerController : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
 
-        currentWeapon = 0;
-        _weapons[currentWeapon].transform.position = _weaponTransform.position;
+        _currentWeapon = 0;
+        _weapons[_currentWeapon].transform.position = _weaponTransform.position;
     }
 
 
@@ -59,15 +59,16 @@ public class PlayerController : MonoBehaviour
             {
                 MoveCharacterWithKeyboard();
                 Jump();
-                SwapWeapon();
 
             }
 
-            //if (TurnTime.isTurnRunning)
-            //{
+            if (TurnTime.isTurnRunning)
+            {
+                SwapWeapon();
                 Shoot();
 
-            //}
+            }
+
             Rotate();
             OpenMenu();
 
@@ -77,7 +78,7 @@ public class PlayerController : MonoBehaviour
 
     void MoveCharacterWithKeyboard()
     {
-        _inputValue = myInputManager.PlayerControlls.Movement.ReadValue<Vector2>();
+        _inputValue = _myInputManager.PlayerControlls.Movement.ReadValue<Vector2>();
 
         _moveVector = new Vector3(_inputValue.x, 0, _inputValue.y);
 
@@ -91,7 +92,7 @@ public class PlayerController : MonoBehaviour
 
     void Jump()
     {
-        if (myInputManager.PlayerControlls.Jump.triggered && _isPlayerGrounded)
+        if (_myInputManager.PlayerControlls.Jump.triggered && _isPlayerGrounded)
         {
             _isPlayerGrounded = false;
 
@@ -103,10 +104,10 @@ public class PlayerController : MonoBehaviour
 
     void Shoot()
     {
-        if (myInputManager.PlayerControlls.Shoot.triggered)
+        if (_myInputManager.PlayerControlls.Shoot.triggered)
         {
-            _weapons[currentWeapon].Shoot();
-            //TurnTime.EndTurnTimer();
+            _weapons[_currentWeapon].Shoot();
+            TurnTime.EndTurnTimer();
         }
     }
 
@@ -119,30 +120,30 @@ public class PlayerController : MonoBehaviour
 
     void SwapWeapon()
     {
-        scrollValue = myInputManager.PlayerControlls.SwapWeapon.ReadValue<float>();
+        _scrollValue = _myInputManager.PlayerControlls.SwapWeapon.ReadValue<float>();
 
-        if (scrollValue < 0)
+        if (_scrollValue < 0)
         {
-            _weapons[currentWeapon].transform.position = new Vector3(0, -200, 0);
-            currentWeapon = (currentWeapon + 1) % _weapons.Length;
-            _weapons[currentWeapon].transform.position = _weaponTransform.position;
+            _weapons[_currentWeapon].transform.position = new Vector3(0, -200, 0);
+            _currentWeapon = (_currentWeapon + 1) % _weapons.Length;
+            _weapons[_currentWeapon].transform.position = _weaponTransform.position;
         }
 
-        if (scrollValue > 0)
+        if (_scrollValue > 0)
         {
-            _weapons[currentWeapon].transform.position = new Vector3(0, -200, 0);
-            currentWeapon = (currentWeapon - 1) % _weapons.Length;
-            if (currentWeapon < 0)
+            _weapons[_currentWeapon].transform.position = new Vector3(0, -200, 0);
+            _currentWeapon = (_currentWeapon - 1) % _weapons.Length;
+            if (_currentWeapon < 0)
             {
-                currentWeapon += _weapons.Length;
+                _currentWeapon += _weapons.Length;
             }
-            _weapons[currentWeapon].transform.position = _weaponTransform.position;
+            _weapons[_currentWeapon].transform.position = _weaponTransform.position;
         }
     }
 
     void OpenMenu()
     {
-        if (myInputManager.PlayerControlls.OpenMenu.triggered)
+        if (_myInputManager.PlayerControlls.OpenMenu.triggered)
         {
             ButtonsScript.ToggleMainMenu();
             
@@ -164,14 +165,14 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
 
-        myInputManager.Enable();
+        _myInputManager.Enable();
 
     }
 
     private void OnDisable()
     {
 
-        myInputManager.Disable();
+        _myInputManager.Disable();
 
     }
 }
